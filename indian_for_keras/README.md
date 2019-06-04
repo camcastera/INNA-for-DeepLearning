@@ -96,6 +96,7 @@ HIST = model.fit(x_train, y_train,
 loss = HIST.history['loss']
 
 import matplotlib.pyplot as plt
-```
+
 plt.plot(loss)
 plt.show()
+```
