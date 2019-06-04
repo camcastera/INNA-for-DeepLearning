@@ -1,28 +1,24 @@
-## This is the README file for indian.py ##
+# Indian code for Keras
 
-# @author : Camille Castera, camille.castera@irit.fr
+This is the Keras code to use the indian algorithm to train neural network. The main file indian.py contains the optimizer.
+It has been tested with Keras This is a Keras 2.2.4 with Tensorflow 1.12.0 as backend. 
 
-# indian.py provide a Keras Optimizer to train model.
-# It has been tested with Keras This is a Keras 2.2.4 with Tensorflow 1.12.0 as backend. 
+## Here is a short example of utilization assuming you have already creating a keras model named model:
+To use it like any other optimizer (SGD, Adam, Adagrad, etc...), simply do:
 
-## Here is an example of utilization: ######
-
-# To use it like any other optimizer (SGD, Adam, Adagrad, etc...), simply do:
-
+```python
 from indian import * # (assuming that the file indian.py is in the current folder)
-
-# Then when you need to compile a model with this optimizer do:
-
+```
+ Then when you need to compile a model with this optimizer do:
+```python
 indian = Indian(lr=0.01,alpha=0.5,beta=0.1,speed_ini=1.,decay=1.,decaypower=0.5)
 model.compile(optimizer=indian)
+```
 
-# Below there is a more complete example on how to train a toy model with keras.
+## Below there is a more complete example on how to train a toy model with keras. 
+You can also find it in the file toy_example.py
 
-
-
-
-#################### Full example on a toy problem ####################
-
+```python
 # Essential packages
 
 import numpy as np
@@ -100,6 +96,6 @@ HIST = model.fit(x_train, y_train,
 loss = HIST.history['loss']
 
 import matplotlib.pyplot as plt
-
+```
 plt.plot(loss)
 plt.show()
