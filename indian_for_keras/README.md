@@ -1,13 +1,16 @@
 # Indian code for Keras
 
-This is the keras implementation for the INDIAN algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* [arXiv version](https://arxiv.org/abs/1905.12278) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
+This is the keras implementation for the INDIAN algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
 It has been tested with Keras This is a Keras 2.2.4 with Tensorflow 1.12.0 as backend. 
+
+To learn how to install and use Keras and Tensorflow, please see [the Keras official website](https://keras.io/).
 
 ## Here is a short example of utilization assuming you have already creating a keras model named model:
 To use it like any other optimizer (SGD, Adam, Adagrad, etc...), simply do:
 
 ```python
-from indian import * # (assuming that the file indian.py is in the current folder)
+# assuming that the file indian.py is in the current folder
+from indian import *
 ```
  Then when you need to compile a model with this optimizer do:
 ```python
