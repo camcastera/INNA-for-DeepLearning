@@ -1,6 +1,6 @@
 # Indian code for Keras
 
-This is the keras implementation for the INDIAN algorithm based on the paper "an Inertial Newton Algorithm for Deep Learning" by C. Castera, J. Bolte, C. Fevotte and E. Pauwels (https://arxiv.org/abs/1905.12278).
+This is the keras implementation for the INDIAN algorithm based on the paper "an Inertial Newton Algorithm for Deep Learning" by C. Castera, J. Bolte, C. Fevotte and E. Pauwels [arXiv version](https://arxiv.org/abs/1905.12278).
 It has been tested with Keras This is a Keras 2.2.4 with Tensorflow 1.12.0 as backend. 
 
 ## Here is a short example of utilization assuming you have already creating a keras model named model:
