@@ -1,5 +1,8 @@
 
-""" Convolutional Neural Network.
+""" This example is an adaptation of the works of Aymeric Damien.
+All the credit goes to him:
+
+ Convolutional Neural Network.
 Build and train a convolutional neural network with TensorFlow.
 This example is using the MNIST database of handwritten digits
 (http://yann.lecun.com/exdb/mnist/)
@@ -8,6 +11,7 @@ example for a raw implementation with variables.
 Author: Aymeric Damien
 Project: https://github.com/aymericdamien/TensorFlow-Examples/
 """
+
 from __future__ import division, print_function, absolute_import
 from tensorflow.random import set_random_seed
 # Import MNIST data

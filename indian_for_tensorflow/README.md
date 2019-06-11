@@ -24,7 +24,10 @@ You can also find it in the file [toy_example.py](https://github.com/camcastera/
 
 ```python
 
-""" Convolutional Neural Network.
+""" This example is an adaptation of the works of Aymeric Damien.
+All the credit goes to him:
+
+ Convolutional Neural Network.
 Build and train a convolutional neural network with TensorFlow.
 This example is using the MNIST database of handwritten digits
 (http://yann.lecun.com/exdb/mnist/)
