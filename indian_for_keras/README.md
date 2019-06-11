@@ -1,12 +1,12 @@
 # Indian code for Keras
 
 This is the keras implementation for the INDIAN algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
-It has been tested with Keras This is a Keras 2.2.4 with Tensorflow 1.12.0 as backend. 
+It has been tested with Keras 2.2.4 and Tensorflow 1.12.0 as backend. 
 
 To learn how to install and use Keras and Tensorflow, please see [the Keras official website](https://keras.io/).
 
-The main code is in file [indian.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_keras/indian.py)
-## Here is a short example of utilization assuming you have already creating a keras model named model:
+The main code is in the file [indian.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_keras/indian.py).
+## Here is a short example of utilization assuming you have already created a keras model named model:
 To use it like any other optimizer (SGD, Adam, Adagrad, etc...), simply do:
 
 ```python
@@ -20,7 +20,7 @@ model.compile(optimizer=indian)
 ```
 
 ## Below there is a more complete example on how to train a toy model with keras. 
-You can also find it in the file [toy_example.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_keras/toy_example.py)
+You can also find it in the file [toy_example.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_keras/toy_example.py).
 
 ```python
 # Essential packages
