@@ -1,103 +1,151 @@
-# Indian code for Keras
+# Indian code for Tensorflow
 
-This is the keras implementation for the INDIAN algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
-It has been tested with Keras This is a Keras 2.2.4 with Tensorflow 1.12.0 as backend. 
+This is the Tensorflow implementation for the INDIAN algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
+It has been tested with Tensorflow 1.12.0. 
 
-To learn how to install and use Keras and Tensorflow, please see [the Keras official website](https://keras.io/).
+To learn how to install and use Tensorflow, please see [the Tensorflow official website](https://www.tensorflow.org/).
 
-The main code is in file [indian.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_keras/indian.py).
-## Here is a short example of utilization assuming you have already creating a keras model named model:
+The main code is in the file [indian.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_tensorflow/indian.py).
+## Here is a short example of utilization assuming you have already implemented everything but the optimizer:
 To use it like any other optimizer (SGD, Adam, Adagrad, etc...), simply do:
 
 ```python
 # assuming that the file indian.py is in the current folder
-from indian import *
+from indian import IndianOptimizer
 ```
  Then when you need to compile a model with this optimizer do:
 ```python
-indian = Indian(lr=0.01,alpha=0.5,beta=0.1,speed_ini=1.,decay=1.,decaypower=0.5)
-model.compile(optimizer=indian)
+optimizer = IndianOptimizer(lr=learning_rate,alpha=0.1,beta=1.)
+train_op = optimizer.minimize(loss_op, global_step=tf.train.get_global_step())
 ```
 
-## Below there is a more complete example on how to train a toy model with keras. 
-You can also find it in the file [toy_example.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_keras/toy_example.py).
+## Below there is a more complete example on how to train a toy model with Tensorflow. 
+You can also find it in the file [toy_example.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_tensorflow/toy_example.py).
 
 ```python
-# Essential packages
 
-import numpy as np
-np.random.seed(27199925)
-import keras
-from keras import backend as K
+""" Convolutional Neural Network.
+Build and train a convolutional neural network with TensorFlow.
+This example is using the MNIST database of handwritten digits
+(http://yann.lecun.com/exdb/mnist/)
+This example is using TensorFlow layers API, see 'convolutional_network_raw' 
+example for a raw implementation with variables.
+Author: Aymeric Damien
+Project: https://github.com/aymericdamien/TensorFlow-Examples/
+"""
+from __future__ import division, print_function, absolute_import
+from tensorflow.random import set_random_seed
+# Import MNIST data
+from tensorflow.examples.tutorials.mnist import input_data
+mnist = input_data.read_data_sets("/tmp/data/", one_hot=False)
+
+import tensorflow as tf
+
+from indian import IndianOptimizer
+
+# Training Parameters
+learning_rate = 0.01
+num_steps = 1000
+batch_size = 128
+
+# Network Parameters
+num_input = 784 # MNIST data input (img shape: 28*28)
+num_classes = 10 # MNIST total classes (0-9 digits)
+dropout = 0.25 # Dropout, probability to drop a unit
 
 
-# Import the optimizer
-from indian import *
-indian = Indian(lr=0.5,alpha=0.5,beta=0.1,speed_ini=1.,decay=1.,decaypower=1./4)
+# Create the neural network
+def conv_net(x_dict, n_classes, dropout, reuse, is_training):
+    # Define a scope for reusing the variables
+    with tf.variable_scope('ConvNet', reuse=reuse):
+        # TF Estimator input is a dict, in case of multiple inputs
+        x = x_dict['images']
 
-# DATASET:
+        # MNIST data input is a 1-D vector of 784 features (28*28 pixels)
+        # Reshape to match picture format [Height x Width x Channel]
+        # Tensor input become 4-D: [Batch Size, Height, Width, Channel]
+        x = tf.reshape(x, shape=[-1, 28, 28, 1])
 
-from keras.datasets import cifar10
-(x_train, y_train), (x_test, y_test) = cifar10.load_data()
-num_classes = 10
-print('x_train shape:', x_train.shape)
-print(x_train.shape[0], 'train samples')
-print(x_test.shape[0], 'test samples')
-print('y_train shape:', y_train.shape)
-x_train = x_train.astype('float32')
-x_test = x_test.astype('float32')
-x_train /= 255.
-x_test /= 255.
+        # Convolution Layer with 32 filters and a kernel size of 5
+        conv1 = tf.layers.conv2d(x, 32, 5, activation=tf.nn.relu)
+        # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
+        conv1 = tf.layers.max_pooling2d(conv1, 2, 2)
 
-# Toy Network:
+        # Convolution Layer with 64 filters and a kernel size of 3
+        conv2 = tf.layers.conv2d(conv1, 64, 3, activation=tf.nn.relu)
+        # Max Pooling (down-sampling) with strides of 2 and kernel size of 2
+        conv2 = tf.layers.max_pooling2d(conv2, 2, 2)
 
-from keras.models import Sequential
-from keras.layers import Conv2D
-from keras.layers import MaxPooling2D
-from keras.layers import Flatten
-from keras.layers import Dense
+        # Flatten the data to a 1-D vector for the fully connected layer
+        fc1 = tf.contrib.layers.flatten(conv2)
 
-model = Sequential()
+        # Fully connected layer (in tf contrib folder for now)
+        fc1 = tf.layers.dense(fc1, 1024)
+        # Apply Dropout (if is_training is False, dropout is not applied)
+        fc1 = tf.layers.dropout(fc1, rate=dropout, training=is_training)
 
-model.add(Conv2D(filters = 6, 
-                 kernel_size = 5, 
-                 strides = 1, 
-                 activation = 'relu', 
-                 input_shape = (32,32,3)))
-model.add(MaxPooling2D(pool_size = 2, strides = 2))
-model.add(Conv2D(filters = 16, 
-                 kernel_size = 5,
-                 strides = 1,
-                 activation = 'relu',
-                 input_shape = (14,14,6)))
-model.add(MaxPooling2D(pool_size = 2, strides = 2))
-#Flatten
-model.add(Flatten())
-model.add(Dense(units = 120, activation = 'relu'))
-model.add(Dense(units = 84, activation = 'relu'))
+        # Output layer, class prediction
+        out = tf.layers.dense(fc1, n_classes)
 
-#Output Layer
-model.add(Dense(units = 10, activation = 'softmax'))
+    return out
 
-# Compile the model with the optimizer:
 
-model.compile(optimizer=indian, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+# Define the model function (following TF Estimator Template)
+def model_fn(features, labels, mode):
+    # Build the neural network
+    # Because Dropout have different behavior at training and prediction time, we
+    # need to create 2 distinct computation graphs that still share the same weights.
+    logits_train = conv_net(features, num_classes, dropout, reuse=False,
+                            is_training=True)
+    logits_test = conv_net(features, num_classes, dropout, reuse=True,
+                           is_training=False)
 
-# Train the Network:
-epochs = 10 ; batchsize = 32
-HIST = model.fit(x_train, y_train,
-              batch_size=batchsize,
-              epochs=epochs,
-              validation_data=(x_test, y_test),
-              shuffle=True,
-              verbose = 1)
-              
-# Plot the loss function
+    # Predictions
+    pred_classes = tf.argmax(logits_test, axis=1)
+    pred_probas = tf.nn.softmax(logits_test)
 
-loss = HIST.history['loss']
+    # If prediction mode, early return
+    if mode == tf.estimator.ModeKeys.PREDICT:
+        return tf.estimator.EstimatorSpec(mode, predictions=pred_classes)
 
-import matplotlib.pyplot as plt
+        # Define loss and optimizer
+    loss_op = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(
+        logits=logits_train, labels=tf.cast(labels, dtype=tf.int32)))
+    optimizer = IndianOptimizer(lr=learning_rate,alpha=0.1,beta=1.,speed_ini=10.)
+    train_op = optimizer.minimize(loss_op,
+                                  global_step=tf.train.get_global_step())
 
-plt.plot(loss)
-plt.show()
+    # Evaluate the accuracy of the model
+    acc_op = tf.metrics.accuracy(labels=labels, predictions=pred_classes)
+
+    # TF Estimators requires to return a EstimatorSpec, that specify
+    # the different ops for training, evaluating, ...
+    estim_specs = tf.estimator.EstimatorSpec(
+        mode=mode,
+        predictions=pred_classes,
+        loss=loss_op,
+        train_op=train_op,
+        eval_metric_ops={'accuracy': acc_op})
+
+    return estim_specs
+
+# Build the Estimator
+model = tf.estimator.Estimator(model_fn)
+
+# Define the input function for training
+input_fn = tf.estimator.inputs.numpy_input_fn(
+    x={'images': mnist.train.images}, y=mnist.train.labels,
+    batch_size=batch_size, num_epochs=None, shuffle=True)
+# Train the Model
+model.train(input_fn, steps=num_steps)
+
+# Evaluate the Model
+# Define the input function for evaluating
+input_fn = tf.estimator.inputs.numpy_input_fn(
+    x={'images': mnist.test.images}, y=mnist.test.labels,
+    batch_size=batch_size, shuffle=False)
+# Use the Estimator 'evaluate' method
+e = model.evaluate(input_fn)
+
+print("Testing Accuracy:", e['accuracy'])
 ```
