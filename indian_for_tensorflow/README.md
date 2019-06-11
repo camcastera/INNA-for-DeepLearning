@@ -5,7 +5,7 @@ It has been tested with Tensorflow 1.12.0.
 
 To learn how to install and use Tensorflow, please see [the Tensorflow official website](https://www.tensorflow.org/).
 
-The main code is in file [indian.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_tensorflow/indian.py).
+The main code is in the file [indian.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_tensorflow/indian.py).
 ## Here is a short example of utilization assuming you have already implemented everything but the optimizer:
 To use it like any other optimizer (SGD, Adam, Adagrad, etc...), simply do:
 
