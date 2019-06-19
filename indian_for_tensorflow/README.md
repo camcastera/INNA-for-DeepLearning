@@ -3,7 +3,11 @@
 This is the Tensorflow implementation for the INDIAN algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
 It has been tested with Tensorflow 1.12.0. 
 
+If you need the Keras version, you will find it [here](https://github.com/camcastera/Indian-for-DeepLearning/tree/master/indian_for_keras).
+
 To learn how to install and use Tensorflow, please see [the Tensorflow official website](https://www.tensorflow.org/).
+
+You will find some already implemented Networks [here](https://github.com/camcastera/Keras-Networks/).
 
 The main code is in the file [indian.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_tensorflow/indian.py).
 ## Here is a short example of utilization assuming you have already implemented everything but the optimizer:
