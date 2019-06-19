@@ -3,9 +3,11 @@
 This is the keras implementation for the INDIAN algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
 It has been tested with Keras 2.2.4 and Tensorflow 1.12.0 as backend. 
 
-If you want the Tensorflow version, you can find it [here](https://github.com/camcastera/Indian-for-DeepLearning/tree/master/indian_for_tensorflow/)
+If you want the Tensorflow version, you can find it [here](https://github.com/camcastera/Indian-for-DeepLearning/tree/master/indian_for_tensorflow/).
 
 To learn how to install and use Keras and Tensorflow, please see [the Keras official website](https://keras.io/).
+
+You will find some already implemented Networks [here](https://github.com/camcastera/Keras-Networks/).
 
 The main code is in the file [indian.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_keras/indian.py).
 ## Here is a short example of utilization assuming you have already created a keras model named model:
@@ -20,7 +22,6 @@ from indian import *
 indian = Indian(lr=0.01,alpha=0.5,beta=0.1,speed_ini=1.,decay=1.,decaypower=0.5)
 model.compile(optimizer=indian)
 ```
-You will find some already implemented Networks [here](https://github.com/camcastera/Keras-Networks/).
 
 
 ## Below there is a more complete example on how to train a toy model with keras. 
