@@ -1,0 +1,78 @@
+import torch
+from torch.optim.optimizer import Optimizer, required
+
+
+class Indian(Optimizer):
+    
+
+    def __init__(self, params, lr=0.1,alpha=0.1,beta=0.1,
+                 decaypower=0.):
+        if lr < 0.0:
+            raise ValueError("Invalid learning rate: {}".format(lr))
+            
+
+        defaults = dict(lr=lr, alpha=alpha, beta=beta,
+                        decaypower=decaypower)
+        super(Indian, self).__init__(params, defaults)
+    
+    
+        for group in self.param_groups:
+            for p in group['params']:
+                state = self.state[p]
+                state['step'] = 0
+                #state['psi'] = (1.-alpha*beta) * torch.clone(group['params']).detach()
+    '''
+    def __setstate__(self, state):
+        super(Indian, self).__setstate__(state)
+        for group in self.param_groups:
+            group.setdefault('psi',(1.-group['alpha']*group['beta'])*torch.clone(group['params']).detach())
+    '''     
+
+            
+    def step(self, closure=None):
+        """Performs a single optimization step.
+
+        Arguments:
+            closure (callable, optional): A closure that reevaluates the model
+                and returns the loss.
+        """
+        loss = None
+        if closure is not None:
+            loss = closure()
+
+        for group in self.param_groups:
+            alpha = group['alpha']
+            beta = group['beta']
+            lr = group['lr']
+            dc = group['decaypower']
+            
+            for p in group['params']:
+                
+                #Get the gradient
+                if p.grad is None:
+                    continue
+                d_p = p.grad.data
+                
+                # Initialize or get the phase variable
+                param_state = self.state[p]
+                if 'psi' not in param_state:
+                    phase = param_state['psi'] = (1.-alpha*beta) * torch.clone(p.data).detach()
+                else:
+                    phase = param_state['psi']
+                    
+                #Prepare the updates    
+                phase_update = (alpha-1./beta)*p.data + 1./beta * phase
+                geom_update = beta*d_p
+                
+                #Compute new learning rate
+                if dc > 0:
+                    lr_t = lr / ( (1 + param_state['step'])** dc )
+                else:
+                    lr_t = lr
+                    
+                #Update param and phase
+                param_state['psi'].sub_( lr_t , phase_update )
+                p.data.sub_( lr_t ,  phase_update + geom_update )
+                param_state['step'] += 1
+                
+        return loss
