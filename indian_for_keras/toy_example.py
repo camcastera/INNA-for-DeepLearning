@@ -1,16 +1,15 @@
-#################### Full example on a toy problem ####################
+####################  Example on a toy problem ####################
 
 # Essential packages
 
 import numpy as np
-np.random.seed(27199925)
 import keras
 from keras import backend as K
 
 
 # Import the optimizer
 from indian import *
-indian = Indian(lr=0.5,alpha=0.5,beta=0.1,speed_ini=1.,decay=1.,decaypower=1./4)
+indian = Indian(lr=0.1,alpha=0.1,beta=0.1,speed_ini=1.,decay=1.,decaypower=1./4)
 
 # DATASET:
 
@@ -78,5 +77,5 @@ loss = HIST.history['loss']
 
 import matplotlib.pyplot as plt
 
-plt.plot(loss)
+plt.plot(np.log10(loss))
 plt.show()
