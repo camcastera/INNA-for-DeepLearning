@@ -9,3 +9,5 @@ It is currently avaiable in Pytorch, Keras, and Tensorflow 1. INDIAN takes the f
 * [Tensorflow Version](https://github.com/camcastera/Indian-for-DeepLearning/tree/master/indian_for_tensorflow)
 
 _NB_: To begin with Deep Learning we recommand to use Pytorch or Keras.
+
+Contact: [Camille Castera](https://camcastera.github.io/contact.html)
