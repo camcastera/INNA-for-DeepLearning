@@ -2,7 +2,7 @@ from keras.optimizers import *
 from keras.legacy import interfaces
 
 
-class Indian(Optimizer):
+class INNA(Optimizer):
     """
     Description: 
         This is the keras implementation for the INDIAN algorithm based on the paper
@@ -41,7 +41,7 @@ class Indian(Optimizer):
                  epsilon=None,
                  **kwargs):
                  
-        super(Indian, self).__init__(**kwargs)
+        super(INNA, self).__init__(**kwargs)
         with K.name_scope(self.__class__.__name__):
             self.iterations = K.variable(0, dtype='int64', name='iterations')
             self.lr = K.variable(lr, name='lr')
@@ -98,5 +98,5 @@ class Indian(Optimizer):
                   'decay': float(K.get_value(self.decay)),
                   'speed_ini' : self.speed_ini
                  }
-        base_config = super(Indian, self).get_config()
+        base_config = super(INNA, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))

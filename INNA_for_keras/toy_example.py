@@ -8,8 +8,8 @@ from keras import backend as K
 
 
 # Import the optimizer
-from indian import *
-indian = Indian(lr=0.1,alpha=0.1,beta=0.1,speed_ini=1.,decay=1.,decaypower=1./4)
+from inna import *
+inna = INNA(lr=0.1,alpha=0.1,beta=0.1,speed_ini=1.,decay=1.,decaypower=1./4)
 
 # DATASET:
 
@@ -60,7 +60,7 @@ model.add(Dense(units = 10, activation = 'softmax'))
 
 # Compile the model with the optimizer:
 
-model.compile(optimizer=indian, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer=inna, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
 # Train the Network:
 epochs = 10 ; batchsize = 32

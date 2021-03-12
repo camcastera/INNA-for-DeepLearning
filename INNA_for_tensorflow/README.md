@@ -1,30 +1,30 @@
-# Indian code for Tensorflow
+# INNA code for Tensorflow
 
-This is the Tensorflow implementation for the INDIAN algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
+This is the Tensorflow implementation for the INNA algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
 It has been tested with Tensorflow 1.12.0. 
 
-If you need the Keras version, you will find it [here](https://github.com/camcastera/Indian-for-DeepLearning/tree/master/indian_for_keras).
+If you need the Keras version, you will find it [here](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/inna_for_keras).
 
 To learn how to install and use Tensorflow, please see [the Tensorflow official website](https://www.tensorflow.org/).
 
 You will find some already implemented Networks [here](https://github.com/camcastera/Keras-Networks/).
 
-The main code is in the file [indian.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_tensorflow/indian.py).
+The main code is in the file [inna.py](https://github.com/camcastera/INNA-for-DeepLearning/blob/master/inna_for_tensorflow/inna.py).
 ## Here is a short example of utilization assuming you have already implemented everything but the optimizer:
 To use it like any other optimizer (SGD, Adam, Adagrad, etc...), simply do:
 
 ```python
-# assuming that the file indian.py is in the current folder
-from indian import IndianOptimizer
+# assuming that the file inna.py is in the current folder
+from inna import INNAOptimizer
 ```
  Then when you need to compile a model with this optimizer do:
 ```python
-optimizer = IndianOptimizer(lr=learning_rate,alpha=0.1,beta=1.)
+optimizer = INNAOptimizer(lr=learning_rate,alpha=0.1,beta=1.)
 train_op = optimizer.minimize(loss_op, global_step=tf.train.get_global_step())
 ```
 
 ## Below there is a more complete example on how to train a toy model with Tensorflow. 
-You can also find it in the file [toy_example.py](https://github.com/camcastera/Indian-for-DeepLearning/blob/master/indian_for_tensorflow/toy_example.py).
+You can also find it in the file [toy_example.py](https://github.com/camcastera/INNA-for-DeepLearning/blob/master/inna_for_tensorflow/toy_example.py).
 
 ```python
 
@@ -48,7 +48,7 @@ mnist = input_data.read_data_sets("/tmp/data/", one_hot=False)
 
 import tensorflow as tf
 
-from indian import IndianOptimizer
+from inna import INNAOptimizer
 
 # Training Parameters
 learning_rate = 0.01
@@ -118,7 +118,7 @@ def model_fn(features, labels, mode):
         # Define loss and optimizer
     loss_op = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(
         logits=logits_train, labels=tf.cast(labels, dtype=tf.int32)))
-    optimizer = IndianOptimizer(lr=learning_rate,alpha=0.1,beta=1.,speed_ini=10.)
+    optimizer = INNAOptimizer(lr=learning_rate,alpha=0.1,beta=1.,speed_ini=10.)
     train_op = optimizer.minimize(loss_op,
                                   global_step=tf.train.get_global_step())
 

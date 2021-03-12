@@ -2,7 +2,7 @@ import torch
 from torch.optim.optimizer import Optimizer, required
 
 
-class Indian(Optimizer):
+class INNA(Optimizer):
     
 
     def __init__(self, params, lr=0.1,alpha=0.1,beta=0.1,
@@ -13,7 +13,7 @@ class Indian(Optimizer):
 
         defaults = dict(lr=lr, alpha=alpha, beta=beta,
                         decaypower=decaypower)
-        super(Indian, self).__init__(params, defaults)
+        super(INNA, self).__init__(params, defaults)
     
     
         for group in self.param_groups:
@@ -23,7 +23,7 @@ class Indian(Optimizer):
                 #state['psi'] = (1.-alpha*beta) * torch.clone(group['params']).detach()
     '''
     def __setstate__(self, state):
-        super(Indian, self).__setstate__(state)
+        super(INNA, self).__setstate__(state)
         for group in self.param_groups:
             group.setdefault('psi',(1.-group['alpha']*group['beta'])*torch.clone(group['params']).detach())
     '''     

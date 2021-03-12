@@ -45,8 +45,8 @@ from tensorflow import cond
 from tensorflow.math import equal
 
 @tf_export(v1=["train.AdamOptimizer"])
-class IndianOptimizer(optimizer.Optimizer):
-  """Optimizer that implements the Indian algorithm.
+class INNAOptimizer(optimizer.Optimizer):
+  """Optimizer that implements the INNA algorithm.
   See [Castera et al., 2019](https://arxiv.org/abs/1905.12278).
   """
 
@@ -59,9 +59,9 @@ class IndianOptimizer(optimizer.Optimizer):
                  speed_ini=1.0,
                  epsilon=1e-8,
                  use_locking=False,
-                 name="Indian"):
+                 name="INNA"):
    
-    super(IndianOptimizer, self).__init__(use_locking,name)
+    super(INNAOptimizer, self).__init__(use_locking,name)
     self._iterations = 0
     self._lr = lr
     self._alpha = alpha

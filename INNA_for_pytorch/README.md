@@ -1,3 +1,30 @@
+# INNA for Pytorch
+
+This is the Pytorch implementation for the INNA algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
+It has been tested with Pytorch 1.2.0
+
+If you want the other versions, you can find them [here](https://github.com/camcastera/INNA-for-DeepLearning/).
+
+
+
+The main code is in the file [inna.py](https://github.com/camcastera/INNA-for-DeepLearning/blob/master/inna_for_pytorch/inna.py).
+## Here is a short example of utilization assuming you already have a network called *net*
+
+```python
+# assuming that the file inna.py is in the current folder
+from inna import *
+```
+ Then when you need to compile a model with this optimizer do:
+```python
+optimizer = INNA(net.parameters(), lr=0.1, 
+    alpha=0.1, beta=0.1, decaypower=1./4)
+```
+
+
+## Below there is a more complete example on how to train a toy model. 
+You can also find it in the file [toy_example.py](https://github.com/camcastera/INNA-for-DeepLearning/blob/master/inna_for_pytorch/toy_example.py).
+
+```python
 # Example inspired from https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#sphx-glr-beginner-blitz-cifar10-tutorial-py
 
 import torch
@@ -56,15 +83,15 @@ net = Net()
 import torch.optim as optim
 criterion = nn.CrossEntropyLoss()
 
-#Import and initialize Indian 
+#Import and initialize INNA 
 
-from indian import Indian
+from inna import INNA
 
 learning_rate = 0.1
 alpha = 0.1 ; beta = 0.1
 decaypower = 1./4
 
-optimizer = Indian(net.parameters(), lr=learning_rate, 
+optimizer = INNA(net.parameters(), lr=learning_rate, 
     alpha=alpha, beta=beta, decaypower=decaypower)
 
 
@@ -105,3 +132,4 @@ print('Finished Training')
 plt.plot( np.log10( np.concatenate(([2.30],hist_loss))  ) )
 plt.xlim(0,len(hist_loss))
 plt.show()
+```
