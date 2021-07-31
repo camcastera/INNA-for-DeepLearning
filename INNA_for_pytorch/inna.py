@@ -6,7 +6,7 @@ class INNA(Optimizer):
     
 
     def __init__(self, params, lr=0.1,alpha=0.5,beta=0.1,
-                 decaypower=0.):
+                 decaypower=0.,weight_decay=0.):
         if lr < 0.0:
             raise ValueError("Invalid learning rate: {}".format(lr))
             
@@ -14,7 +14,7 @@ class INNA(Optimizer):
             print('Warning: Do not combine the decaypower parameter with a pytorch scheduler')
 
         defaults = dict(lr=lr, alpha=alpha, beta=beta,
-                        decaypower=decaypower)
+                        decaypower=decaypower,weight_decay=weight_decay)
         super(INNA, self).__init__(params, defaults)
            
         for group in self.param_groups:
@@ -46,6 +46,7 @@ class INNA(Optimizer):
             beta = group['beta']
             lr = group['lr']
             dc = group['decaypower']
+            weight_decay = group['weight_decay']
             
             for p in group['params']:
                 
@@ -73,7 +74,11 @@ class INNA(Optimizer):
                     
                 #Update param and phase
                 param_state['psi'].sub_( lr_t , phase_update )
-                p.data.sub_( lr_t ,  phase_update + geom_update )
+                if weight_decay <= 0:
+                    p.data.sub_( lr_t ,  phase_update + geom_update )
+                else:
+                    WD = weight_decay * p.data
+                    p.data.sub_( lr_t ,  phase_update + geom_update + WD)
                 param_state['step'] += 1
                 
         return loss
