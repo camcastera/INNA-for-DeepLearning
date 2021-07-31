@@ -16,13 +16,12 @@ class INNA(Optimizer):
         defaults = dict(lr=lr, alpha=alpha, beta=beta,
                         decaypower=decaypower)
         super(INNA, self).__init__(params, defaults)
-    
-    
+           
         for group in self.param_groups:
             for p in group['params']:
                 state = self.state[p]
                 state['step'] = 0
-                #state['psi'] = (1.-alpha*beta) * torch.clone(group['params']).detach()
+                #state['psi'] = (1.-alpha*beta) * torch.clone(group['params']).detach() 
     '''
     def __setstate__(self, state):
         super(INNA, self).__setstate__(state)

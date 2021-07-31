@@ -119,8 +119,8 @@ for epoch in range(6):  # loop over the dataset multiple times
         
         #Optimize
         optimizer.step()
-
-        # print statistics
+        
+        # print statistics 
         running_loss += loss.item()
         if i % nbiter == nbiter - 1:    # print every 500 mini-batches
             print('[%d, %5d] loss: %.3f' %
