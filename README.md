@@ -6,9 +6,9 @@ It is currently available in Pytorch. Keras, and Tensorflow 1 versions are provi
 
 INNA takes the form of an *Optimizer* object that can be imported an used as any other optimizer (SGD, ADAM, etc.).  Toy examples and explanations are provided.
 
-* [Pytorch Version](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/inna_for_pytorch)
-* [Keras Version](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/inna_for_keras)
-* [Tensorflow Version](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/inna_for_tensorflow)
+* [Pytorch Version](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/INNA_for_pytorch)
+* [Keras Version](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/INNA_for_keras)
+* [Tensorflow Version](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/INNA_for_tensorflow)
 
 Contact: [Camille Castera](https://camcastera.github.io/contact.html)
 
