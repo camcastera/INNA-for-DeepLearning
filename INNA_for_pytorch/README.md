@@ -15,7 +15,7 @@ from inna import *
  Then initialize the optimizer with a model called *net*:
 ```python
 optimizer = INNA(net.parameters(), lr=0.1, 
-    alpha=0.5, beta=0.1, decaypower=1./4)
+    alpha=0.5, beta=0.1)
 ```
 
 
@@ -30,6 +30,8 @@ import torchvision
 import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
 import numpy as np
+
+from torch.optim.lr_scheduler import LambdaLR #scheduler for stepsize decay
 
 # Load Cifar 10 Dataset
 transform = transforms.Compose(
@@ -87,11 +89,13 @@ from inna import INNA
 
 learning_rate = 0.1
 alpha = 0.5 ; beta = 0.1
-decaypower = 1./4
 
 optimizer = INNA(net.parameters(), lr=learning_rate, 
-    alpha=alpha, beta=beta, decaypower=decaypower)
+    alpha=alpha, beta=beta)
 
+# scheduler #
+lambda_lr = lambda epochs: np.sqrt(epochs+1)**(-1)
+scheduler = LambdaLR(optimizer, lambda_lr)
 
 # Train the model
 
@@ -115,7 +119,7 @@ for epoch in range(6):  # loop over the dataset multiple times
         
         #Optimize
         optimizer.step()
-        
+
         # print statistics
         running_loss += loss.item()
         if i % nbiter == nbiter - 1:    # print every 500 mini-batches
@@ -123,6 +127,7 @@ for epoch in range(6):  # loop over the dataset multiple times
                   (epoch + 1, i + 1, running_loss / nbiter))
             hist_loss.append(running_loss / nbiter)
             running_loss = 0.0
+    scheduler.step() #Step-size decay at each epoch 
 print('Finished Training')
 
 

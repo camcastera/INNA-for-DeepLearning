@@ -88,7 +88,7 @@ def model_fn(features, labels, mode):
         # Define loss and optimizer
     loss_op = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(
         logits=logits_train, labels=tf.cast(labels, dtype=tf.int32)))
-    optimizer = INNAOptimizer(lr=learning_rate,alpha=0.5,beta=0.1)
+    optimizer = INNAOptimizer(lr=learning_rate,alpha=0.5,beta=0.1,decay=1.,decaypower=1./2)
     train_op = optimizer.minimize(loss_op,
                                   global_step=tf.train.get_global_step())
 
@@ -124,4 +124,4 @@ input_fn = tf.estimator.inputs.numpy_input_fn(
 # Use the Estimator 'evaluate' method
 e = model.evaluate(input_fn)
 
-print("Testing Accuracy:", e['accuracy'])
+print("Testing Accuracy:", ['accuracy'])

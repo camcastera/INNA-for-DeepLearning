@@ -5,11 +5,13 @@ from torch.optim.optimizer import Optimizer, required
 class INNA(Optimizer):
     
 
-    def __init__(self, params, lr=0.1,alpha=0.1,beta=0.1,
+    def __init__(self, params, lr=0.1,alpha=0.5,beta=0.1,
                  decaypower=0.):
         if lr < 0.0:
             raise ValueError("Invalid learning rate: {}".format(lr))
             
+        if decaypower>0:
+            print('Warning: Do not combine the decaypower parameter with a pytorch scheduler')
 
         defaults = dict(lr=lr, alpha=alpha, beta=beta,
                         decaypower=decaypower)

@@ -1,7 +1,7 @@
 # INNA for Keras
 
 This is the keras implementation for the INNA algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
-It has been tested with Keras 2.2.4 and Tensorflow 1.12.0 as backend. 
+It has been tested with Keras 2.2.4 and Tensorflow 1.12.0 as backend, this version is not updated anymore. 
 
 The Tensorflow version, can be found [here](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/INNA_for_tensorflow), a Pytorch implementation is also [available](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/INNA_for_pytorch).
 
@@ -35,7 +35,7 @@ from keras import backend as K
 
 # Import the optimizer
 from inna import *
-inna = INNA(lr=0.5,alpha=0.5,beta=0.1)
+inna = INNA(lr=0.5,alpha=0.5,beta=0.1,decay=1.,decaypower=1./2)
 
 # DATASET:
 
