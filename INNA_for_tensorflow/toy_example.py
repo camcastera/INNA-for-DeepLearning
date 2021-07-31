@@ -1,6 +1,4 @@
-
-""" This example is an adaptation of the works of Aymeric Damien.
-All the credit goes to him:
+""" This example is based on a code from Aymeric Damien (https://github.com/aymericdamien).
 
  Convolutional Neural Network.
 Build and train a convolutional neural network with TensorFlow.
@@ -90,7 +88,7 @@ def model_fn(features, labels, mode):
         # Define loss and optimizer
     loss_op = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(
         logits=logits_train, labels=tf.cast(labels, dtype=tf.int32)))
-    optimizer = INNAOptimizer(lr=learning_rate,alpha=0.1,beta=1.,speed_ini=10.)
+    optimizer = INNAOptimizer(lr=learning_rate,alpha=0.5,beta=0.1)
     train_op = optimizer.minimize(loss_op,
                                   global_step=tf.train.get_global_step())
 

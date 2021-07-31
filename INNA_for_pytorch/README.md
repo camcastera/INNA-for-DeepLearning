@@ -5,19 +5,17 @@ It has been tested with Pytorch 1.2.0
 
 If you want the other versions, you can find them [here](https://github.com/camcastera/INNA-for-DeepLearning/).
 
-
-
 The main code is in the file [inna.py](https://github.com/camcastera/INNA-for-DeepLearning/blob/master/inna_for_pytorch/inna.py).
-## Here is a short example of utilization assuming you already have a network called *net*
+## The INNA optimizer can be simply use in the following way:
 
 ```python
 # assuming that the file inna.py is in the current folder
 from inna import *
 ```
- Then when you need to compile a model with this optimizer do:
+ Then initialize the optimizer with a model called *net*:
 ```python
 optimizer = INNA(net.parameters(), lr=0.1, 
-    alpha=0.1, beta=0.1, decaypower=1./4)
+    alpha=0.5, beta=0.1, decaypower=1./4)
 ```
 
 
@@ -88,7 +86,7 @@ criterion = nn.CrossEntropyLoss()
 from inna import INNA
 
 learning_rate = 0.1
-alpha = 0.1 ; beta = 0.1
+alpha = 0.5 ; beta = 0.1
 decaypower = 1./4
 
 optimizer = INNA(net.parameters(), lr=learning_rate, 

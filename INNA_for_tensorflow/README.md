@@ -1,35 +1,31 @@
-# INNA code for Tensorflow
+# INNA for Tensorflow
 
 This is the Tensorflow implementation for the INNA algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
 It has been tested with Tensorflow 1.12.0. 
 
-If you need the Keras version, you will find it [here](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/inna_for_keras).
+The Keras version, can be found [here](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/INNA_for_keras), a Pytorch implementation is also [available](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/INNA_for_pytorch).
 
-To learn how to install and use Tensorflow, please see [the Tensorflow official website](https://www.tensorflow.org/).
+The optimizer is contained in the file [inna.py](https://github.com/camcastera/INNA-for-DeepLearning/blob/master/inna_for_tensorflow/inna.py).
 
-You will find some already implemented Networks [here](https://github.com/camcastera/Keras-Networks/).
-
-The main code is in the file [inna.py](https://github.com/camcastera/INNA-for-DeepLearning/blob/master/inna_for_tensorflow/inna.py).
-## Here is a short example of utilization assuming you have already implemented everything but the optimizer:
+## The INNA optimizer can be simply use in the following way:
 To use it like any other optimizer (SGD, Adam, Adagrad, etc...), simply do:
 
 ```python
 # assuming that the file inna.py is in the current folder
 from inna import INNAOptimizer
 ```
- Then when you need to compile a model with this optimizer do:
+ Then, you will want to compile a model with the optimizer:
 ```python
-optimizer = INNAOptimizer(lr=learning_rate,alpha=0.1,beta=1.)
+optimizer = INNAOptimizer(lr=learning_rate,alpha=0.5,beta=0.1)
 train_op = optimizer.minimize(loss_op, global_step=tf.train.get_global_step())
 ```
 
-## Below there is a more complete example on how to train a toy model with Tensorflow. 
+## Below is a complete example on a toy model. 
 You can also find it in the file [toy_example.py](https://github.com/camcastera/INNA-for-DeepLearning/blob/master/inna_for_tensorflow/toy_example.py).
 
 ```python
 
-""" This example is an adaptation of the works of Aymeric Damien.
-All the credit goes to him:
+""" This example is based on a code from Aymeric Damien (https://github.com/aymericdamien).
 
  Convolutional Neural Network.
 Build and train a convolutional neural network with TensorFlow.
@@ -118,7 +114,7 @@ def model_fn(features, labels, mode):
         # Define loss and optimizer
     loss_op = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(
         logits=logits_train, labels=tf.cast(labels, dtype=tf.int32)))
-    optimizer = INNAOptimizer(lr=learning_rate,alpha=0.1,beta=1.,speed_ini=10.)
+    optimizer = INNAOptimizer(lr=learning_rate,alpha=0.5,beta=0.1)
     train_op = optimizer.minimize(loss_op,
                                   global_step=tf.train.get_global_step())
 
@@ -156,3 +152,4 @@ e = model.evaluate(input_fn)
 
 print("Testing Accuracy:", e['accuracy'])
 ```
+

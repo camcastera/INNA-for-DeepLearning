@@ -9,7 +9,7 @@ from keras import backend as K
 
 # Import the optimizer
 from inna import *
-inna = INNA(lr=0.1,alpha=0.1,beta=0.1,speed_ini=1.,decay=1.,decaypower=1./4)
+inna = INNA(lr=0.1,alpha=0.5,beta=0.1)
 
 # DATASET:
 

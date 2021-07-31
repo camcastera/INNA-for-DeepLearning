@@ -1,30 +1,27 @@
-# INNA code for Keras
+# INNA for Keras
 
 This is the keras implementation for the INNA algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
 It has been tested with Keras 2.2.4 and Tensorflow 1.12.0 as backend. 
 
-If you want the Tensorflow version, you can find it [here](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/inna_for_tensorflow/).
-
-To learn how to install and use Keras and Tensorflow, please see [the Keras official website](https://keras.io/).
-
-You will find some already implemented Networks [here](https://github.com/camcastera/Keras-Networks/).
+The Tensorflow version, can be found [here](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/INNA_for_tensorflow), a Pytorch implementation is also [available](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/INNA_for_pytorch).
 
 The main code is in the file [inna.py](https://github.com/camcastera/INNA-for-DeepLearning/blob/master/inna_for_keras/inna.py).
-## Here is a short example of utilization assuming you have already created a keras model named model:
+## The INNA optimizer can be simply use in the following way:
+
 To use it like any other optimizer (SGD, Adam, Adagrad, etc...), simply do:
 
 ```python
 # assuming that the file inna.py is in the current folder
 from inna import *
 ```
- Then when you need to compile a model with this optimizer do:
+Then, you will want to compile a model with the optimizer:
 ```python
-inna = INNA(lr=0.01,alpha=0.5,beta=0.1,speed_ini=1.,decay=1.,decaypower=0.5)
+inna = INNA(lr=0.01,alpha=0.5,beta=0.1)
 model.compile(optimizer=inna)
 ```
 
+## Below is a complete example on a toy model. 
 
-## Below there is a more complete example on how to train a toy model with keras. 
 You can also find it in the file [toy_example.py](https://github.com/camcastera/INNA-for-DeepLearning/blob/master/inna_for_keras/toy_example.py).
 
 ```python
@@ -38,7 +35,7 @@ from keras import backend as K
 
 # Import the optimizer
 from inna import *
-inna = INNA(lr=0.5,alpha=0.5,beta=0.1,speed_ini=1.,decay=1.,decaypower=1./4)
+inna = INNA(lr=0.5,alpha=0.5,beta=0.1)
 
 # DATASET:
 

@@ -61,11 +61,10 @@ criterion = nn.CrossEntropyLoss()
 from inna import INNA
 
 learning_rate = 0.1
-alpha = 0.1 ; beta = 0.1
-decaypower = 1./4
+alpha = 0.5 ; beta = 0.1
 
 optimizer = INNA(net.parameters(), lr=learning_rate, 
-    alpha=alpha, beta=beta, decaypower=decaypower)
+    alpha=alpha, beta=beta)
 
 
 # Train the model
