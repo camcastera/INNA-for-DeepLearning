@@ -1,6 +1,6 @@
 # INNA for Pytorch
 
-This is the Pytorch implementation for the INNA algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
+This is the Pytorch implementation for the INNA algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([JMLR version](https://jmlr.csail.mit.edu/papers/v22/19-1024.html)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
 It has been tested with Pytorch 1.2.0
 
 If you want the other versions, you can find them [here](https://github.com/camcastera/INNA-for-DeepLearning/).
