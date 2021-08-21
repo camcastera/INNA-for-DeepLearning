@@ -1,6 +1,6 @@
 # INNA for Keras
 
-This is the keras implementation for the INNA algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
+This is the keras implementation for the INNA algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([JMLR version](https://jmlr.csail.mit.edu/papers/v22/19-1024.html)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
 It has been tested with Keras 2.2.4 and Tensorflow 1.12.0 as backend, this version is not updated anymore. 
 
 The Tensorflow version, can be found [here](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/INNA_for_tensorflow), a Pytorch implementation is also [available](https://github.com/camcastera/INNA-for-DeepLearning/tree/master/INNA_for_pytorch).
