@@ -1,6 +1,6 @@
 # INNA-for-DeepLearning
 
-This is the package for the INNA algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([arXiv version](https://arxiv.org/abs/1905.12278)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
+This is the package for the INNA algorithm based on the paper *An Inertial Newton Algorithm for Deep Learning* ([JMLR version](https://jmlr.csail.mit.edu/papers/v22/19-1024.html)) by C. Castera, J. Bolte, C. Fevotte and E. Pauwels.
 
 It is currently available in Pytorch. Keras, and Tensorflow 1 versions are provided but not updated anymore.  
 
